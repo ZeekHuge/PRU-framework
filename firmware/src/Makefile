@@ -12,9 +12,9 @@ LD=lnkpru
 CGTDIR = /usr/share/ti/cgt-pru
 
 # PRU software support package by TI
-SWDIR = /usr/share/pru-software-support-package
+SWDIR ?= /usr/share/pru-software-support-package
 
-INCLUDEDIR = -I$(SWDIR)/include -I$(CGTDIR)/include -I$(CGTDIR)/lib
+INCLUDEDIR = -I$(SWDIR)/include -I$(SWDIR)/include/am335x -I$(CGTDIR)/include -I$(CGTDIR)/lib -I./include
 
 # Compiler Options
 # -v3				PRU version 3
@@ -48,9 +48,9 @@ rproc-pru1-fw: rproc-pru1-fw.obj pru_vring.obj
 	@echo "  LD	$@"
 	@$(CC) $(CFLAGS) $^ -q -z $(LDFLAGS) -o $@
 	
-install-frombb: rproc-pru0-fw rproc-pru1-fw-pru1
+install-frombb: rproc-pru0-fw rproc-pru1-fw
 	cp -t /lib/firmware rproc-pru0-fw
-	cp -t /lib/firmware rproc-pru-fw
+	cp -t /lib/firmware rproc-pru1-fw
 
 install-tobb: rproc-pru0-fw rproc-pru1-fw
 	scp -q rproc-pru0-fw $(BBHOST):/lib/firmware
