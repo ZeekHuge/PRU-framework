@@ -2,8 +2,8 @@
 # PRUSS_REMOTEPROC - pruss driver for kernel Remoteproc infrastructure
 #
 
-KDIR ?= /lib/modules/`uname -r`/build
-INSTALL_DIR = kernel/drivers/remoteproc
+KDIR ?= /lib/modules/$(shell uname -r)/build
+INSTALL_DIR = /lib/modules/$(shell uname -r)/kernel/drivers/remoteproc/
 default:
 	make -C $(KDIR) M=$(PWD)
 clean:
